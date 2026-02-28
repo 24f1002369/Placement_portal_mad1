@@ -48,6 +48,8 @@ def init_db():
             location TEXT NOT NULL,
             website TEXT,
             description TEXT,
+            approval_status TEXT NOT NULL DEFAULT 'pending'
+            CHECK (approval_status IN ('pending','accepted','rejected')),
             created_at TEXT DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE)                        
         """)
@@ -62,6 +64,8 @@ def init_db():
             eligibility_cgpa REAL CHECK(eligibility_cgpa >= 0 AND eligibility_cgpa <= 10),
             drive_date TEXT NOT NULL,
             last_date_to_apply TEXT NOT NULL,
+            status TEXT NOT NULL DEFAULT 'pending'
+            CHECK (status in ('pending', 'approved', 'closed')),
             created_at TEXT DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(company_id) REFERENCES companies(id) ON DELETE CASCADE)                        
     """)
