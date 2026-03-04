@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<h2>Pending Company Approvals</h2>
+
+{% if companies %}
+
+<table border="1">
+    <tr>
+        <th>Company Name</th>
+        <th>Location</th>
+        <th>Actions</th>
+    </tr>
+
+```
+{% for company in companies %}
+<tr>
+    <td>{{ company[1] }}</td>
+    <td>{{ company[2] }}</td>
+    <td>
+        <a href="{{ url_for('approve_company', company_id=company[0]) }}">Approve</a>
+        |
+        <a href="{{ url_for('reject_company', company_id=company[0]) }}">Reject</a>
+    </td>
+</tr>
+{% endfor %}
+```
+
+</table>
+
+{% else %}
+
+<p>No companies pending approval.</p>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('logout') }}">Logout</a>
+
+{% endblock %}

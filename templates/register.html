@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+<h2>Register</h2>
+
+<form method="POST" action="{{ url_for('register') }}">
+
+<label>Email:</label><br> <input type="text" name="email" required> <br><br>
+
+<label>Password:</label><br> <input type="password" name="password" required> <br><br>
+
+<label>Role:</label><br> <select name="role"> <option value="student">Student</option> <option value="company">Company</option> </select>
+
+<hr>
+
+<h3>Student Details</h3>
+
+<label>Roll Number:</label><br> <input type="text" name="roll_number"> <br><br>
+
+<label>Branch:</label><br> <input type="text" name="branch"> <br><br>
+
+<label>CGPA:</label><br> <input type="text" name="cgpa"> <br><br>
+
+<label>Phone:</label><br> <input type="text" name="phone"> <br><br>
+
+<hr>
+
+<h3>Company Details</h3>
+
+<label>Company Name:</label><br> <input type="text" name="company_name"> <br><br>
+
+<label>Location:</label><br> <input type="text" name="location"> <br><br>
+
+<label>Website:</label><br> <input type="text" name="website"> <br><br>
+
+<label>Description:</label><br> <input type="text" name="description"> <br><br>
+
+<button type="submit">Register</button>
+
+</form>
+
+{% endblock %}

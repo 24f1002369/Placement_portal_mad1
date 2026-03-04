@@ -49,7 +49,7 @@ def init_db():
             website TEXT,
             description TEXT,
             approval_status TEXT NOT NULL DEFAULT 'pending'
-            CHECK (approval_status IN ('pending','accepted','rejected')),
+            CHECK (approval_status IN ('pending','approved','rejected')),
             created_at TEXT DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE)                        
         """)
@@ -86,3 +86,5 @@ def init_db():
 
     connection.commit()
     connection.close()
+
+    
