@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Student Profile</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+Name
+<input type="text" name="name" value="{{ student[0] }}">
+<br><br>
+
+Roll Number
+<input type="text" value="{{ student[1] }}" disabled>
+<br><br>
+
+Branch
+<input type="text" value="{{ student[2] }}" disabled>
+<br><br>
+
+CGPA
+<input type="text" value="{{ student[3] }}" disabled>
+<br><br>
+
+Phone
+<input type="text" name="phone" value="{{ student[4] }}">
+<br><br>
+
+LinkedIn
+<input type="text" name="linkedin" value="{{ student[5] }}">
+<br><br>
+
+Portfolio
+<input type="text" name="portfolio" value="{{ student[6] }}">
+<br><br>
+
+Skills
+<textarea name="skills">{{ student[7] }}</textarea>
+<br><br>
+
+Upload Resume
+<input type="file" name="resume">
+<br><br>
+
+<button type="submit">Update Profile</button>
+
+</form>
+
+{% endblock %}

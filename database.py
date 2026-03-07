@@ -1,4 +1,5 @@
 import sqlite3
+from werkzeug.security import generate_password_hash
 
 def init_db():
     connection = sqlite3.connect("placement.db")
@@ -11,7 +12,7 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             email TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL,
-            role TEXT NOT NULL,
+            role TEXT CHECK(role IN ('student', 'company', 'admin')) NOT NULL,
             is_active INTEGER DEFAULT 1
             )                           
     """)
@@ -24,18 +25,23 @@ def init_db():
     if admin == None:
         cursor.execute(
             "INSERT INTO users (email,password,role,is_active) VALUES (?,?,?,?)",
-            ('admin1@placementportal.com','admin1','admin',1))
+            ('admin1@placementportal.com',generate_password_hash('admin1'),'admin',1))
     
     # create students table
     cursor.execute(""" 
         CREATE TABLE IF NOT EXISTS students (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER UNIQUE NOT NULL,
+            name TEXT NOT NULL,
             roll_number INTEGER UNIQUE NOT NULL,
             branch TEXT NOT NULL,
             cgpa REAL CHECK(cgpa >= 0 AND cgpa <= 10),
             phone TEXT,
-            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            linkedin TEXT,
+            portfolio TEXT,
+            skills TEXT,
+            resume_path TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE)                        
         """)
     
@@ -50,7 +56,7 @@ def init_db():
             description TEXT,
             approval_status TEXT NOT NULL DEFAULT 'pending'
             CHECK (approval_status IN ('pending','approved','rejected')),
-            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE)                        
         """)
     
@@ -65,8 +71,8 @@ def init_db():
             drive_date TEXT NOT NULL,
             last_date_to_apply TEXT NOT NULL,
             status TEXT NOT NULL DEFAULT 'pending'
-            CHECK (status in ('pending', 'approved', 'closed')),
-            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            CHECK (status in ('pending', 'approved', 'rejected','closed')),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(company_id) REFERENCES companies(id) ON DELETE CASCADE)                        
     """)
 
@@ -77,7 +83,7 @@ def init_db():
             student_id INTEGER NOT NULL,
             drive_id INTEGER NOT NULL,
             status TEXT NOT NULL DEFAULT 'applied'
-                CHECK(status IN ('applied','shortlisted','rejected','selected')),
+                CHECK(status IN ('applied','shortlisted','rejected','selected','placed')),
             applied_at TEXT DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(student_id) REFERENCES students(id) ON DELETE CASCADE, 
             FOREIGN KEY(drive_id) REFERENCES placement_drives(id) ON DELETE CASCADE,

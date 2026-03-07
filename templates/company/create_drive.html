@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Create Placement Drive</h2>
+
+<form action="{{ url_for('create_drive') }}" method="POST">
+
+<label>Title</label>
+<input type="text" name="title" required>
+
+<label>Description</label>
+<textarea name="description"></textarea>
+
+<label>Eligibility CGPA</label>
+<input type="number" step="0.01" name="eligibility_cgpa">
+
+<label>Drive Date</label>
+<input type="date" name="drive_date">
+
+<label>Last Date To Apply</label>
+<input type="date" name="last_date_to_apply">
+
+<button type="submit">Create Drive</button>
+
+</form>
+
+{% endblock %}

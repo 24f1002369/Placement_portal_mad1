@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Admin Management</h2>
+
+<form method="GET">
+
+Search Students / Companies
+
+<input type="text" name="search">
+
+<button type="submit">Search</button>
+
+</form>
+
+<hr>
+
+<h3>Students</h3>
+
+<table border="1">
+
+<tr>
+<th>Name</th>
+<th>Roll Number</th>
+<th>Branch</th>
+<th>CGPA</th>
+<th>Phone</th>
+</tr>
+
+{% for s in students %}
+
+<tr>
+<td>{{ s[0] }}</td>
+<td>{{ s[1] }}</td>
+<td>{{ s[2] }}</td>
+<td>{{ s[3] }}</td>
+<td>{{ s[4] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<hr>
+
+<h3>Companies</h3>
+
+<table border="1">
+
+<tr>
+<th>Company Name</th>
+<th>Location</th>
+<th>Status</th>
+</tr>
+
+{% for c in companies %}
+
+<tr>
+<td>{{ c[0] }}</td>
+<td>{{ c[1] }}</td>
+<td>{{ c[2] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

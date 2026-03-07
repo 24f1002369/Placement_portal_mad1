@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Applicants</h2>
+
+<table border="1">
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Branch</th>
+<th>CGPA</th>
+<th>Skills</th>
+<th>Resume</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+{% for applicant in applicants %}
+
+<tr>
+
+<td>{{ applicant[1] }}</td>
+<td>{{ applicant[2] }}</td>
+<td>{{ applicant[3] }}</td>
+<td>{{ applicant[4] }}</td>
+<td>{{ applicant[5] }}</td>
+
+<td>
+{% if applicant[6] %}
+<a href="{{ url_for('download_resume', filename=applicant[6]) }}">
+Download
+</a>
+{% else %}
+No Resume
+{% endif %}
+</td>
+
+<td>{{ applicant[7] }}</td>
+
+<td>
+
+<a href="{{ url_for('update_application', app_id=applicant[0], status='shortlisted') }}">
+Shortlist
+</a>
+
+|
+
+<a href="{{ url_for('update_application', app_id=applicant[0], status='selected') }}">
+Select
+</a>
+
+|
+
+<a href="{{ url_for('update_application', app_id=applicant[0], status='placed') }}">
+Placed
+</a>
+
+|
+
+<a href="{{ url_for('update_application', app_id=applicant[0], status='rejected') }}">
+Reject
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Placed Students</h2>
+
+<table border="1">
+
+<tr>
+<th>Student Name</th>
+<th>Company</th>
+<th>Position</th>
+<th>Status</th>
+<th>Date</th>
+</tr>
+
+{% for p in placements %}
+
+<tr>
+<td>{{ p[0] }}</td>
+<td>{{ p[1] }}</td>
+<td>{{ p[2] }}</td>
+<td>{{ p[3] }}</td>
+<td>{{ p[4] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}
