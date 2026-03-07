@@ -2,48 +2,69 @@
 
 {% block content %}
 
-<h2>Student Profile</h2>
+<h3 class="mb-4">Student Profile</h3>
+
+<div class="card shadow-sm">
+<div class="card-body">
 
 <form method="POST" enctype="multipart/form-data">
 
-Name
-<input type="text" name="name" value="{{ student[0] }}">
-<br><br>
+<div class="row">
 
-Roll Number
-<input type="text" value="{{ student[1] }}" disabled>
-<br><br>
+<div class="col-md-6 mb-3">
+<label>Name</label>
+<input type="text" name="name" value="{{ student[0] }}" class="form-control" required>
+</div>
 
-Branch
-<input type="text" value="{{ student[2] }}" disabled>
-<br><br>
+<div class="col-md-6 mb-3">
+<label>Roll Number</label>
+<input type="text" class="form-control" value="{{ student[1] }}" readonly>
+</div>
 
-CGPA
-<input type="text" value="{{ student[3] }}" disabled>
-<br><br>
+<div class="col-md-6 mb-3">
+<label>Branch</label>
+<input type="text" class="form-control" value="{{ student[2] }}" readonly>
+</div>
 
-Phone
-<input type="text" name="phone" value="{{ student[4] }}">
-<br><br>
+<div class="col-md-6 mb-3">
+<label>CGPA</label>
+<input type="text" class="form-control" value="{{ student[3] }}" readonly>
+</div>
 
-LinkedIn
-<input type="text" name="linkedin" value="{{ student[5] }}">
-<br><br>
+<div class="col-md-6 mb-3">
+<label>Phone</label>
+<input type="text" name="phone" value="{{ student[4] }}" class="form-control">
+</div>
 
-Portfolio
-<input type="text" name="portfolio" value="{{ student[6] }}">
-<br><br>
+<div class="col-md-6 mb-3">
+<label>LinkedIn</label>
+<input type="text" name="linkedin" value="{{ student[5] }}" class="form-control">
+</div>
 
-Skills
-<textarea name="skills">{{ student[7] }}</textarea>
-<br><br>
+<div class="col-md-6 mb-3">
+<label>Portfolio</label>
+<input type="text" name="portfolio" value="{{ student[6] }}" class="form-control">
+</div>
 
-Upload Resume
-<input type="file" name="resume">
-<br><br>
+<div class="col-md-6 mb-3">
+<label>Skills</label>
+<input type="text" name="skills" value="{{ student[7] }}" class="form-control">
+</div>
 
-<button type="submit">Update Profile</button>
+<div class="col-md-12 mb-3">
+<label>Upload Resume</label>
+<input type="file" name="resume" class="form-control">
+</div>
+
+</div>
+
+<button class="btn btn-primary">
+Update Profile
+</button>
 
 </form>
+
+</div>
+</div>
 
 {% endblock %}

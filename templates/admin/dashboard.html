@@ -1,12 +1,68 @@
-<h3 class="mt-4">Pending Companies</h3>
+{% extends "base.html" %}
 
-<table class="table table-bordered">
+{% block content %}
 
-<tr class="table-dark">
+<h3 class="mb-4">Admin Dashboard</h3>
+
+<div class="row mb-4">
+
+<div class="col-md-3">
+<div class="card shadow-sm card-hover text-center">
+<div class="card-body">
+<h2>{{ total_students }}</h2>
+<p>Total Students</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card shadow-sm card-hover text-center">
+<div class="card-body">
+<h2>{{ total_companies }}</h2>
+<p>Total Companies</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card shadow-sm card-hover text-center">
+<div class="card-body">
+<h2>{{ total_drives }}</h2>
+<p>Total Drives</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card shadow-sm card-hover text-center">
+<div class="card-body">
+<h2>{{ total_applications }}</h2>
+<p>Total Applications</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="table-box">
+
+<h5 class="mb-3">Pending Companies</h5>
+
+<table class="table table-striped">
+
+<thead>
+<tr>
 <th>Company</th>
 <th>Location</th>
-<th>Actions</th>
+<th>Action</th>
 </tr>
+</thead>
+
+<tbody>
 
 {% for company in companies %}
 
@@ -17,14 +73,18 @@
 
 <td>
 
-<a class="btn btn-success btn-sm"
-href="{{ url_for('approve_company', company_id=company[0]) }}">
+<a href="{{ url_for('approve_company', company_id=company[0]) }}" 
+class="btn btn-success btn-sm">
+
 Approve
+
 </a>
 
-<a class="btn btn-danger btn-sm"
-href="{{ url_for('reject_company', company_id=company[0]) }}">
+<a href="{{ url_for('reject_company', company_id=company[0]) }}" 
+class="btn btn-danger btn-sm">
+
 Reject
+
 </a>
 
 </td>
@@ -33,4 +93,71 @@ Reject
 
 {% endfor %}
 
+</tbody>
+
 </table>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="table-box">
+
+<h5 class="mb-3">Pending Drives</h5>
+
+<table class="table table-striped">
+
+<thead>
+<tr>
+<th>Company</th>
+<th>Title</th>
+<th>Date</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for drive in pending_drives %}
+
+<tr>
+
+<td>{{ drive[1] }}</td>
+<td>{{ drive[2] }}</td>
+<td>{{ drive[3] }}</td>
+
+<td>
+
+<a href="{{ url_for('approve_drive', drive_id=drive[0]) }}"
+class="btn btn-success btn-sm">
+
+Approve
+
+</a>
+
+<a href="{{ url_for('reject_drive', drive_id=drive[0]) }}"
+class="btn btn-danger btn-sm">
+
+Reject
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

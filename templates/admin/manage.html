@@ -2,68 +2,104 @@
 
 {% block content %}
 
-<h2>Admin Management</h2>
+<h3 class="mb-4">Manage Users</h3>
 
-<form method="GET">
+<form method="GET" class="mb-4">
 
-Search Students / Companies
+<div class="input-group">
 
-<input type="text" name="search">
+<input type="text" name="search" class="form-control" placeholder="Search students or companies">
 
-<button type="submit">Search</button>
+<button class="btn btn-primary">
+Search
+</button>
+
+</div>
 
 </form>
 
-<hr>
+<div class="row">
 
-<h3>Students</h3>
+<div class="col-md-6">
 
-<table border="1">
+<div class="table-box">
 
+<h5>Students</h5>
+
+<table class="table table-striped">
+
+<thead>
 <tr>
 <th>Name</th>
-<th>Roll Number</th>
+<th>Roll</th>
 <th>Branch</th>
 <th>CGPA</th>
 <th>Phone</th>
 </tr>
+</thead>
+
+<tbody>
 
 {% for s in students %}
 
 <tr>
+
 <td>{{ s[0] }}</td>
 <td>{{ s[1] }}</td>
 <td>{{ s[2] }}</td>
 <td>{{ s[3] }}</td>
 <td>{{ s[4] }}</td>
+
 </tr>
 
 {% endfor %}
 
+</tbody>
+
 </table>
 
-<hr>
+</div>
 
-<h3>Companies</h3>
+</div>
 
-<table border="1">
+<div class="col-md-6">
 
+<div class="table-box">
+
+<h5>Companies</h5>
+
+<table class="table table-striped">
+
+<thead>
 <tr>
-<th>Company Name</th>
+<th>Name</th>
 <th>Location</th>
 <th>Status</th>
 </tr>
+</thead>
+
+<tbody>
 
 {% for c in companies %}
 
 <tr>
+
 <td>{{ c[0] }}</td>
 <td>{{ c[1] }}</td>
 <td>{{ c[2] }}</td>
+
 </tr>
 
 {% endfor %}
 
+</tbody>
+
 </table>
+
+</div>
+
+</div>
+
+</div>
 
 {% endblock %}

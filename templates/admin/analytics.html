@@ -2,28 +2,19 @@
 
 {% block content %}
 
-<h2 style="text-align:center;">Admin Analytics Dashboard</h2>
+<h3 class="mb-4">Analytics Dashboard</h3>
 
-<div style="width:90%; margin:auto;">
+<div class="row">
 
-<div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+<div class="col-md-6">
 
-<!-- Applications per Company -->
-<div style="width:48%; background:#f9f9f9; padding:20px; border-radius:8px;">
+<div class="card shadow-sm">
 
-<h3 style="text-align:center;">Applications per Company</h3>
+<div class="card-body">
 
-<canvas id="companyChart" height="220"></canvas>
+<h5 class="mb-3">Applications Per Company</h5>
 
-</div>
-
-
-<!-- Status Distribution -->
-<div style="width:48%; background:#f9f9f9; padding:20px; border-radius:8px;">
-
-<h3 style="text-align:center;">Application Status Distribution</h3>
-
-<canvas id="statusChart" height="220"></canvas>
+<canvas id="companyChart"></canvas>
 
 </div>
 
@@ -31,78 +22,73 @@
 
 </div>
 
+<div class="col-md-6">
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="card shadow-sm">
+
+<div class="card-body">
+
+<h5 class="mb-3">Application Status Distribution</h5>
+
+<canvas id="statusChart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 <script>
 
 const companyNames = {{ company_names | tojson }};
 const applicationCounts = {{ application_counts | tojson }};
 
+const ctx1 = document.getElementById('companyChart');
+
+new Chart(ctx1, {
+
+type: 'bar',
+
+data: {
+
+labels: companyNames,
+
+datasets: [{
+
+label: 'Applications',
+
+data: applicationCounts
+
+}]
+
+}
+
+});
+
 const statuses = {{ statuses | tojson }};
 const statusCounts = {{ status_counts | tojson }};
 
+const ctx2 = document.getElementById('statusChart');
 
-// Company Applications Chart
+new Chart(ctx2, {
 
-new Chart(
-document.getElementById('companyChart'),
-{
-type: 'bar',
-data: {
-labels: companyNames,
-datasets: [{
-label: 'Applications',
-data: applicationCounts,
-backgroundColor: 'rgba(54, 162, 235, 0.7)'
-}]
-},
-options: {
-responsive: true,
-plugins: {
-legend: {
-display: false
-}
-},
-scales: {
-y: {
-beginAtZero: true
-}
-}
-}
-}
-);
-
-
-// Status Distribution Chart
-
-new Chart(
-document.getElementById('statusChart'),
-{
 type: 'pie',
+
 data: {
+
 labels: statuses,
+
 datasets: [{
-data: statusCounts,
-backgroundColor: [
-'#4CAF50',
-'#2196F3',
-'#FF9800',
-'#F44336',
-'#9C27B0'
-]
+
+data: statusCounts
+
 }]
-},
-options: {
-responsive: true,
-plugins: {
-legend: {
-position: 'bottom'
+
 }
-}
-}
-}
-);
+
+});
 
 </script>
 

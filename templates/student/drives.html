@@ -2,17 +2,20 @@
 
 {% block content %}
 
-<h2 class="mb-4">Available Placement Drives</h2>
+<h3 class="mb-4">Available Placement Drives</h3>
 
-<table class="table table-striped">
+<div class="table-box">
 
-<thead class="table-dark">
+<table class="table table-striped table-hover">
+
+<thead>
 <tr>
 <th>Company</th>
-<th>Position</th>
+<th>Role</th>
 <th>Eligibility CGPA</th>
 <th>Drive Date</th>
-<th>Apply</th>
+<th>Last Date</th>
+<th>Action</th>
 </tr>
 </thead>
 
@@ -21,16 +24,22 @@
 {% for drive in drives %}
 
 <tr>
+
 <td>{{ drive[1] }}</td>
 <td>{{ drive[2] }}</td>
 <td>{{ drive[3] }}</td>
 <td>{{ drive[4] }}</td>
+<td>{{ drive[5] }}</td>
 
 <td>
-<a class="btn btn-success btn-sm"
-href="{{ url_for('apply_drive', drive_id=drive[0]) }}">
+
+<a href="{{ url_for('apply_drive', drive_id=drive[0]) }}"
+class="btn btn-primary btn-sm">
+
 Apply
+
 </a>
+
 </td>
 
 </tr>
@@ -40,5 +49,7 @@ Apply
 </tbody>
 
 </table>
+
+</div>
 
 {% endblock %}
