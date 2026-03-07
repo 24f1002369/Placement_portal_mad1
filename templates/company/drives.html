@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>My Placement Drives</h2>
+
+<table border="1">
+
+<tr>
+<th>Title</th>
+<th>Eligibility CGPA</th>
+<th>Date</th>
+<th>Status</th>
+<th>Applicants</th>
+</tr>
+
+{% for drive in drives %}
+
+<tr>
+<td>{{ drive[1] }}</td>
+<td>{{ drive[2] }}</td>
+<td>{{ drive[3] }}</td>
+<td>{{ drive[4] }}</td>
+
+<td>
+<a href="{{ url_for('view_applicants', drive_id=drive[0]) }}">
+View Applicants
+</a>
+
+{% if drive[4] == "approved" %}
+
+|
+<a href="{{ url_for('close_drive', drive_id=drive[0]) }}">
+Close Drive
+</a>
+
+{% endif %}
+</td>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Available Placement Drives</h2>
+
+<table border="1">
+
+<tr>
+<th>Company</th>
+<th>Title</th>
+<th>Eligibility CGPA</th>
+<th>Drive Date</th>
+<th>Apply</th>
+</tr>
+
+{% for drive in drives %}
+
+<tr>
+<td>{{ drive[1] }}</td>
+<td>{{ drive[2] }}</td>
+<td>{{ drive[3] }}</td>
+<td>{{ drive[4] }}</td>
+
+<td>
+<a href="{{ url_for('apply_drive', drive_id=drive[0]) }}">
+Apply
+</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

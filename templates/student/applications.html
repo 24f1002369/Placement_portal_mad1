@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>My Applications</h2>
+
+<table border="1">
+
+<tr>
+<th>Company</th>
+<th>Position</th>
+<th>Status</th>
+<th>Applied At</th>
+</tr>
+
+{% for app in applications %}
+
+<tr>
+<td>{{ app[0] }}</td>
+<td>{{ app[1] }}</td>
+<td>{{ app[2] }}</td>
+<td>{{ app[3] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

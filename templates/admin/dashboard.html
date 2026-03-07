@@ -1,44 +1,62 @@
 {% extends "base.html" %}
 
-{% block title %}Admin Dashboard{% endblock %}
-
 {% block content %}
 
-<h2>Pending Company Approvals</h2>
+<h2>Admin Dashboard</h2>
 
-{% if companies %}
+<h3>System Statistics</h3>
 
-<table border="1">
-    <tr>
-        <th>Company Name</th>
-        <th>Location</th>
-        <th>Actions</th>
-    </tr>
+<ul>
 
-```
+<li>Total Students: {{ total_students }}</li>
+
+<li>Total Companies: {{ total_companies }}</li>
+
+<li>Total Placement Drives: {{ total_drives }}</li>
+
+<li>Total Applications: {{ total_applications }}</li>
+
+</ul>
+
+<hr>
+
+<a href="{{ url_for('admin_manage') }}">Manage Students & Companies</a>
+<br><br>
+
+<a href="{{ url_for('admin_placements') }}">View Placements</a>
+<br><br>
+
+<h3>Pending Companies</h3>
+
 {% for company in companies %}
-<tr>
-    <td>{{ company[1] }}</td>
-    <td>{{ company[2] }}</td>
-    <td>
-        <a href="{{ url_for('approve_company', company_id=company[0]) }}">Approve</a>
-        |
-        <a href="{{ url_for('reject_company', company_id=company[0]) }}">Reject</a>
-    </td>
-</tr>
+
+<p>
+{{ company[1] }} ({{ company[2] }})
+
+<a href="{{ url_for('approve_company', company_id=company[0]) }}">Approve</a>
+
+<a href="{{ url_for('reject_company', company_id=company[0]) }}">Reject</a>
+
+</p>
+
 {% endfor %}
-```
 
-</table>
+<hr>
 
-{% else %}
+<h3>Pending Placement Drives</h3>
 
-<p>No companies pending approval.</p>
+{% for drive in pending_drives %}
 
-{% endif %}
+<p>
 
-<br>
+{{ drive[1] }} - {{ drive[2] }}
 
-<a href="{{ url_for('logout') }}">Logout</a>
+<a href="{{ url_for('approve_drive', drive_id=drive[0]) }}">Approve</a>
+
+<a href="{{ url_for('reject_drive', drive_id=drive[0]) }}">Reject</a>
+
+</p>
+
+{% endfor %}
 
 {% endblock %}
