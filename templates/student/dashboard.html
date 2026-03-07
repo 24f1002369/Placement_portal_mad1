@@ -2,17 +2,30 @@
 
 {% block content %}
 
-<h2>Student Dashboard</h2>
+<h2 class="mb-4">Student Dashboard</h2>
 
-<a href="{{ url_for('student_profile') }}">Edit Profile</a>
-<br><br>
+<div class="list-group">
 
-<a href="{{ url_for('student_applications') }}">My Applications</a>
-<br><br>
+<a class="list-group-item list-group-item-action"
+href="{{ url_for('student_profile') }}">
+Edit Profile
+</a>
 
-<a href="{{ url_for('student_drives') }}">View Placement Drives</a>
-<br><br>
+<a class="list-group-item list-group-item-action"
+href="{{ url_for('student_drives') }}">
+View Placement Drives
+</a>
 
-<a href="{{ url_for('logout') }}">Logout</a>
+<a class="list-group-item list-group-item-action"
+href="{{ url_for('student_applications') }}">
+My Applications
+</a>
+
+<a class="list-group-item list-group-item-action text-danger"
+href="{{ url_for('logout') }}">
+Logout
+</a>
+
+</div>
 
 {% endblock %}

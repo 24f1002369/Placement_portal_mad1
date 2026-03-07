@@ -1,19 +1,26 @@
 {% extends "base.html" %}
 
-{% block title %}Company Dashboard{% endblock %}
-
 {% block content %}
 
-<h2>Company Dashboard</h2>
+<h2 class="mb-4">Company Dashboard</h2>
 
-<p>Welcome Company!</p>
+<div class="list-group">
 
-<a href="{{ url_for('create_drive') }}">Create Placement Drive </a>
-<br><br>
+<a class="list-group-item list-group-item-action"
+href="{{ url_for('create_drive') }}">
+Create Placement Drive
+</a>
 
-<a href="{{ url_for('company_drives') }}"> View My Drives </a>
-<br><br>
+<a class="list-group-item list-group-item-action"
+href="{{ url_for('company_drives') }}">
+View My Drives
+</a>
 
-<a href="{{ url_for('logout') }}"> Logout</a>
-<br><br>
+<a class="list-group-item list-group-item-action text-danger"
+href="{{ url_for('logout') }}">
+Logout
+</a>
+
+</div>
+
 {% endblock %}

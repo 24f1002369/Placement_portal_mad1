@@ -214,3 +214,52 @@ def admin_placements():
         "admin/placements.html",
         placements=placements
     )
+
+@app.route("/admin/analytics")
+@login_required
+@role_required("admin")
+def admin_analytics():
+
+    connection = sqlite3.connect("placement.db")
+    cursor = connection.cursor()
+
+    # Applications per company
+    cursor.execute(
+        """
+        SELECT companies.company_name, COUNT(applications.id)
+        FROM applications
+        JOIN placement_drives
+            ON applications.drive_id = placement_drives.id
+        JOIN companies
+            ON placement_drives.company_id = companies.id
+        GROUP BY companies.company_name
+        """
+    )
+    company_data = cursor.fetchall()
+
+    company_names = [row[0] for row in company_data]
+    application_counts = [row[1] for row in company_data]
+
+    # Placement status distribution
+    cursor.execute(
+        """
+        SELECT status, COUNT(*)
+        FROM applications
+        GROUP BY status
+        """
+    )
+
+    status_data = cursor.fetchall()
+
+    statuses = [row[0] for row in status_data]
+    status_counts = [row[1] for row in status_data]
+
+    connection.close()
+
+    return render_template(
+        "admin/analytics.html",
+        company_names=company_names,
+        application_counts=application_counts,
+        statuses=statuses,
+        status_counts=status_counts
+    )

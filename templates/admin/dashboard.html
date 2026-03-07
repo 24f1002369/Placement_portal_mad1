@@ -1,62 +1,36 @@
-{% extends "base.html" %}
+<h3 class="mt-4">Pending Companies</h3>
 
-{% block content %}
+<table class="table table-bordered">
 
-<h2>Admin Dashboard</h2>
-
-<h3>System Statistics</h3>
-
-<ul>
-
-<li>Total Students: {{ total_students }}</li>
-
-<li>Total Companies: {{ total_companies }}</li>
-
-<li>Total Placement Drives: {{ total_drives }}</li>
-
-<li>Total Applications: {{ total_applications }}</li>
-
-</ul>
-
-<hr>
-
-<a href="{{ url_for('admin_manage') }}">Manage Students & Companies</a>
-<br><br>
-
-<a href="{{ url_for('admin_placements') }}">View Placements</a>
-<br><br>
-
-<h3>Pending Companies</h3>
+<tr class="table-dark">
+<th>Company</th>
+<th>Location</th>
+<th>Actions</th>
+</tr>
 
 {% for company in companies %}
 
-<p>
-{{ company[1] }} ({{ company[2] }})
+<tr>
 
-<a href="{{ url_for('approve_company', company_id=company[0]) }}">Approve</a>
+<td>{{ company[1] }}</td>
+<td>{{ company[2] }}</td>
 
-<a href="{{ url_for('reject_company', company_id=company[0]) }}">Reject</a>
+<td>
 
-</p>
+<a class="btn btn-success btn-sm"
+href="{{ url_for('approve_company', company_id=company[0]) }}">
+Approve
+</a>
 
-{% endfor %}
+<a class="btn btn-danger btn-sm"
+href="{{ url_for('reject_company', company_id=company[0]) }}">
+Reject
+</a>
 
-<hr>
+</td>
 
-<h3>Pending Placement Drives</h3>
-
-{% for drive in pending_drives %}
-
-<p>
-
-{{ drive[1] }} - {{ drive[2] }}
-
-<a href="{{ url_for('approve_drive', drive_id=drive[0]) }}">Approve</a>
-
-<a href="{{ url_for('reject_drive', drive_id=drive[0]) }}">Reject</a>
-
-</p>
+</tr>
 
 {% endfor %}
 
-{% endblock %}
+</table>

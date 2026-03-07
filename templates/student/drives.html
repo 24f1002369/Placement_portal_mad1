@@ -2,17 +2,21 @@
 
 {% block content %}
 
-<h2>Available Placement Drives</h2>
+<h2 class="mb-4">Available Placement Drives</h2>
 
-<table border="1">
+<table class="table table-striped">
 
+<thead class="table-dark">
 <tr>
 <th>Company</th>
-<th>Title</th>
+<th>Position</th>
 <th>Eligibility CGPA</th>
 <th>Drive Date</th>
 <th>Apply</th>
 </tr>
+</thead>
+
+<tbody>
 
 {% for drive in drives %}
 
@@ -23,7 +27,8 @@
 <td>{{ drive[4] }}</td>
 
 <td>
-<a href="{{ url_for('apply_drive', drive_id=drive[0]) }}">
+<a class="btn btn-success btn-sm"
+href="{{ url_for('apply_drive', drive_id=drive[0]) }}">
 Apply
 </a>
 </td>
@@ -31,6 +36,8 @@ Apply
 </tr>
 
 {% endfor %}
+
+</tbody>
 
 </table>
 
