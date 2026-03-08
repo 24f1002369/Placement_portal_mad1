@@ -2,93 +2,181 @@
 
 {% block content %}
 
-<h3 class="mb-4">Analytics Dashboard</h3>
+<h4 class="mb-3">Analytics Dashboard</h4>
 
-<div class="row">
+<div class="row g-3">
 
-<div class="col-md-6">
-
+<!-- Applications Per Company -->
+<div class="col-md-4">
 <div class="card shadow-sm">
+<div class="card-body p-3">
 
-<div class="card-body">
-
-<h5 class="mb-3">Applications Per Company</h5>
+<h6 class="mb-2">Applications Per Company</h6>
 
 <canvas id="companyChart"></canvas>
 
 </div>
-
+</div>
 </div>
 
-</div>
 
-<div class="col-md-6">
-
+<!-- Status Distribution -->
+<div class="col-md-4">
 <div class="card shadow-sm">
+<div class="card-body p-3">
 
-<div class="card-body">
-
-<h5 class="mb-3">Application Status Distribution</h5>
+<h6 class="mb-2">Status Distribution</h6>
 
 <canvas id="statusChart"></canvas>
 
 </div>
+</div>
+</div>
 
+
+<!-- Applications by Status -->
+<div class="col-md-4">
+<div class="card shadow-sm">
+<div class="card-body p-3">
+
+<h6 class="mb-2">Applications by Status</h6>
+
+<canvas id="statusBarChart"></canvas>
+
+</div>
+</div>
 </div>
 
 </div>
 
-</div>
 
 <script>
 
 const companyNames = {{ company_names | tojson }};
 const applicationCounts = {{ application_counts | tojson }};
 
-const ctx1 = document.getElementById('companyChart');
-
-new Chart(ctx1, {
-
-type: 'bar',
-
-data: {
-
-labels: companyNames,
-
-datasets: [{
-
-label: 'Applications',
-
-data: applicationCounts
-
-}]
-
-}
-
-});
-
 const statuses = {{ statuses | tojson }};
 const statusCounts = {{ status_counts | tojson }};
 
-const ctx2 = document.getElementById('statusChart');
 
-new Chart(ctx2, {
+/* COMPANY BAR CHART */
 
-type: 'pie',
+new Chart(
+document.getElementById("companyChart"),
+{
+type:"bar",
 
-data: {
-
-labels: statuses,
-
-datasets: [{
-
-data: statusCounts
-
+data:{
+labels:companyNames,
+datasets:[{
+data:applicationCounts,
+backgroundColor:"#3b82f6"
 }]
+},
+
+options:{
+responsive:true,
+maintainAspectRatio:true,
+
+animation:{
+duration:900
+},
+
+plugins:{
+legend:{display:false}
+},
+
+scales:{
+y:{
+beginAtZero:true,
+ticks:{
+precision:0,
+stepSize:1
+}
+}
+}
 
 }
 
-});
+}
+);
+
+
+/* PIE CHART */
+
+new Chart(
+document.getElementById("statusChart"),
+{
+type:"pie",
+
+data:{
+labels:statuses,
+datasets:[{
+data:statusCounts,
+backgroundColor:[
+"#3b82f6",
+"#ef4444",
+"#f59e0b",
+"#10b981"
+]
+}]
+},
+
+options:{
+responsive:true,
+maintainAspectRatio:true,
+
+animation:{
+duration:1000
+}
+
+}
+
+}
+);
+
+
+/* STATUS BAR CHART */
+
+new Chart(
+document.getElementById("statusBarChart"),
+{
+type:"bar",
+
+data:{
+labels:statuses,
+datasets:[{
+data:statusCounts,
+backgroundColor:"#8b5cf6"
+}]
+},
+
+options:{
+responsive:true,
+maintainAspectRatio:true,
+
+animation:{
+duration:900
+},
+
+plugins:{
+legend:{display:false}
+},
+
+scales:{
+y:{
+beginAtZero:true,
+ticks:{
+precision:0,
+stepSize:1
+}
+}
+}
+
+}
+
+}
+);
 
 </script>
 

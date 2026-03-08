@@ -41,18 +41,21 @@
 
 <td>
 
-<a href="{{ url_for('download_resume', filename=app[6]) }}"
+{% if app[6] %}
+<a href="{{ url_for('download_resume', filename=app[6]) }}" 
 class="btn btn-sm btn-secondary">
-
 Download
-
 </a>
+{% else %}
+<span class="text-muted">No Resume</span>
+{% endif %}
 
 </td>
 
 <td>{{ app[7] }}</td>
 
 <td>
+
 
 <a href="{{ url_for('update_application', app_id=app[0], status='shortlisted') }}"
 class="btn btn-warning btn-sm">Shortlist</a>

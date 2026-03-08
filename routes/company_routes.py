@@ -11,7 +11,78 @@ from utils.decorators import login_required, role_required, company_approval_req
 @role_required("company")
 @company_approval_required
 def company_dashboard():
-    return render_template("company/dashboard.html")
+
+    connection = sqlite3.connect("placement.db")
+    cursor = connection.cursor()
+
+    user_id = session["user_id"]
+
+    # Get company_id from user_id
+    cursor.execute(
+        "SELECT id FROM companies WHERE user_id=?",
+        (user_id,)
+    )
+
+    company = cursor.fetchone()
+    company_id = company[0]
+
+    # Total drives created by company
+    cursor.execute(
+        "SELECT COUNT(*) FROM placement_drives WHERE company_id=?",
+        (company_id,)
+    )
+    total_drives = cursor.fetchone()[0]
+
+    # Total applicants across all drives
+    cursor.execute(
+        """
+        SELECT COUNT(*)
+        FROM applications
+        JOIN placement_drives
+        ON applications.drive_id = placement_drives.id
+        WHERE placement_drives.company_id = ?
+        """,
+        (company_id,)
+    )
+    total_applicants = cursor.fetchone()[0]
+
+    # Shortlisted candidates
+    cursor.execute(
+        """
+        SELECT COUNT(*)
+        FROM applications
+        JOIN placement_drives
+        ON applications.drive_id = placement_drives.id
+        WHERE placement_drives.company_id = ?
+        AND applications.status='shortlisted'
+        """,
+        (company_id,)
+    )
+    shortlisted = cursor.fetchone()[0]
+
+    # Placed candidates
+    cursor.execute(
+        """
+        SELECT COUNT(*)
+        FROM applications
+        JOIN placement_drives
+        ON applications.drive_id = placement_drives.id
+        WHERE placement_drives.company_id = ?
+        AND applications.status='placed'
+        """,
+        (company_id,)
+    )
+    placed = cursor.fetchone()[0]
+
+    connection.close()
+
+    return render_template(
+        "company/dashboard.html",
+        total_drives=total_drives,
+        total_applicants=total_applicants,
+        shortlisted=shortlisted,
+        placed=placed
+    )
 
 @app.route("/company/create_drive", methods = ['POST','GET'])
 @login_required

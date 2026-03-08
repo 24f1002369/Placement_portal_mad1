@@ -11,7 +11,51 @@ from flask import current_app
 @login_required
 @role_required("student")
 def student_dashboard():
-    return render_template("student/dashboard.html")
+
+    connection = sqlite3.connect("placement.db")
+    cursor = connection.cursor()
+
+    user_id = session["user_id"]
+
+    cursor.execute(
+        "SELECT id FROM students WHERE user_id=?",
+        (user_id,)
+    )
+    student_id = cursor.fetchone()[0]
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM applications WHERE student_id=?",
+        (student_id,)
+    )
+    applied = cursor.fetchone()[0]
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM applications WHERE student_id=? AND status='shortlisted'",
+        (student_id,)
+    )
+    shortlisted = cursor.fetchone()[0]
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM applications WHERE student_id=? AND status='selected'",
+        (student_id,)
+    )
+    selected = cursor.fetchone()[0]
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM applications WHERE student_id=? AND status='placed'",
+        (student_id,)
+    )
+    placed = cursor.fetchone()[0]
+
+    connection.close()
+
+    return render_template(
+        "student/dashboard.html",
+        applied=applied,
+        shortlisted=shortlisted,
+        selected=selected,
+        placed=placed
+    )
 
 @app.route("/student/profile", methods = ["GET","POST"])
 @login_required
@@ -104,6 +148,7 @@ def student_drives():
         ON placement_drives.company_id = companies.id
         JOIN students ON students.user_id = ?
         WHERE placement_drives.status = 'approved'
+        AND placement_drives.last_date_to_apply >= DATE('now')
         AND students.cgpa >= placement_drives.eligibility_cgpa
         ORDER BY placement_drives.drive_date ASC
         """,
@@ -186,6 +231,19 @@ def apply_drive(drive_id):
     )
 
     drive = cursor.fetchone()
+
+    cursor.execute(
+    "SELECT last_date_to_apply FROM placement_drives WHERE id=?",
+    (drive_id,)
+    )
+
+    last_date = cursor.fetchone()[0]
+
+    from datetime import date
+
+    if date.today().isoformat() > last_date:
+        flash("Application deadline has passed")
+        return redirect(url_for("student_drives"))
 
     if drive is None:
         flash("Drive not found")

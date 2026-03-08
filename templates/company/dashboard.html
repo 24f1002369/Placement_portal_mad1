@@ -4,9 +4,49 @@
 
 <h3 class="mb-4">Company Dashboard</h3>
 
+<div class="row mb-4">
+
+<div class="col-md-3">
+<div class="card card-hover shadow-sm text-center">
+<div class="card-body">
+<h2>{{ total_drives }}</h2>
+<p>Total Drives</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card card-hover shadow-sm text-center">
+<div class="card-body">
+<h2>{{ total_applicants }}</h2>
+<p>Total Applicants</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card card-hover shadow-sm text-center">
+<div class="card-body">
+<h2>{{ shortlisted }}</h2>
+<p>Shortlisted</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card card-hover shadow-sm text-center">
+<div class="card-body">
+<h2>{{ placed }}</h2>
+<p>Placed</p>
+</div>
+</div>
+</div>
+
+</div>
+
 <div class="row">
 
-<div class="col-md-4">
+<div class="col-md-6">
 <div class="card shadow-sm card-hover">
 <div class="card-body text-center">
 
@@ -24,7 +64,7 @@ Create Drive
 </div>
 </div>
 
-<div class="col-md-4">
+<div class="col-md-6">
 <div class="card shadow-sm card-hover">
 <div class="card-body text-center">
 
@@ -32,7 +72,7 @@ Create Drive
 
 <h5 class="mt-3">Manage Drives</h5>
 
-<p>View all drives created by your company.</p>
+<p>View and manage all drives.</p>
 
 <a href="{{ url_for('company_drives') }}" class="btn btn-success btn-sm">
 View Drives

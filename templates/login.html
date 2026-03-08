@@ -2,44 +2,75 @@
 
 {% block content %}
 
-<div class="container">
+<style>
 
-<div class="row justify-content-center">
+/* Full screen center wrapper */
+.login-wrapper{
+height:calc(100vh - 50px);
+display:flex;
+align-items:center;
+justify-content:center;
+}
 
-<div class="col-md-5">
+/* Login card styling */
+.login-card{
+width:100%;
+max-width:420px;
+border-radius:12px;
+border:none;
+}
 
-<div class="card shadow mt-5">
+/* Title styling */
+.login-card h3{
+font-weight:600;
+}
 
-<div class="card-body">
+/* Gradient button */
+.login-btn{
+background:linear-gradient(90deg,#3b82f6,#2563eb);
+border:none;
+}
+
+.login-btn:hover{
+background:linear-gradient(90deg,#2563eb,#1d4ed8);
+}
+
+</style>
+
+<div class="login-wrapper">
+
+<div class="card shadow-lg login-card">
+
+<div class="card-body p-4">
 
 <h3 class="text-center mb-4">Login</h3>
 
 <form method="POST">
 
 <div class="mb-3">
-<label>Email</label>
+<label class="form-label">Email</label>
 <input type="email" name="email" class="form-control" required>
 </div>
 
-<div class="mb-3">
-<label>Password</label>
+<div class="mb-4">
+<label class="form-label">Password</label>
 <input type="password" name="password" class="form-control" required>
 </div>
 
-<button class="btn btn-primary w-100">
+<button class="btn login-btn text-white w-100">
 Login
 </button>
 
 </form>
 
 <div class="text-center mt-3">
-<a href="{{ url_for('register') }}">Create account</a>
+<a href="{{ url_for('register') }}">
+Create account
+</a>
 </div>
 
 </div>
-</div>
 
-</div>
 </div>
 
 </div>
