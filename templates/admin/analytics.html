@@ -25,7 +25,7 @@
 <div class="card shadow-sm">
 <div class="card-body p-3">
 
-<h6 class="mb-2">Status Distribution</h6>
+<h6 class="mb-2">Application Status Distribution</h6>
 
 <canvas id="statusChart"></canvas>
 
@@ -34,14 +34,14 @@
 </div>
 
 
-<!-- Applications by Status -->
+<!-- NEW CHART : Placements by Company -->
 <div class="col-md-4">
 <div class="card shadow-sm">
 <div class="card-body p-3">
 
-<h6 class="mb-2">Applications by Status</h6>
+<h6 class="mb-2">Placements by Company</h6>
 
-<canvas id="statusBarChart"></canvas>
+<canvas id="placementChart"></canvas>
 
 </div>
 </div>
@@ -58,14 +58,16 @@ const applicationCounts = {{ application_counts | tojson }};
 const statuses = {{ statuses | tojson }};
 const statusCounts = {{ status_counts | tojson }};
 
+const placementCompanies = {{ placement_companies | tojson }};
+const placementCounts = {{ placement_counts | tojson }};
 
-/* COMPANY BAR CHART */
+
+/* Applications Per Company */
 
 new Chart(
 document.getElementById("companyChart"),
 {
 type:"bar",
-
 data:{
 labels:companyNames,
 datasets:[{
@@ -73,19 +75,10 @@ data:applicationCounts,
 backgroundColor:"#3b82f6"
 }]
 },
-
 options:{
 responsive:true,
 maintainAspectRatio:true,
-
-animation:{
-duration:900
-},
-
-plugins:{
-legend:{display:false}
-},
-
+plugins:{legend:{display:false}},
 scales:{
 y:{
 beginAtZero:true,
@@ -95,74 +88,55 @@ stepSize:1
 }
 }
 }
-
 }
-
 }
 );
 
 
-/* PIE CHART */
+/* Status Distribution */
 
 new Chart(
 document.getElementById("statusChart"),
 {
 type:"pie",
-
 data:{
 labels:statuses,
 datasets:[{
 data:statusCounts,
 backgroundColor:[
 "#3b82f6",
-"#ef4444",
+"#10b981",
 "#f59e0b",
-"#10b981"
+"#ef4444"
 ]
 }]
 },
-
 options:{
 responsive:true,
-maintainAspectRatio:true,
-
-animation:{
-duration:1000
+maintainAspectRatio:true
 }
-
-}
-
 }
 );
 
 
-/* STATUS BAR CHART */
+/* Placements by Company */
 
 new Chart(
-document.getElementById("statusBarChart"),
+document.getElementById("placementChart"),
 {
 type:"bar",
-
 data:{
-labels:statuses,
+labels:placementCompanies,
 datasets:[{
-data:statusCounts,
+label:"Students Placed",
+data:placementCounts,
 backgroundColor:"#8b5cf6"
 }]
 },
-
 options:{
 responsive:true,
 maintainAspectRatio:true,
-
-animation:{
-duration:900
-},
-
-plugins:{
-legend:{display:false}
-},
-
+plugins:{legend:{display:false}},
 scales:{
 y:{
 beginAtZero:true,
@@ -172,9 +146,7 @@ stepSize:1
 }
 }
 }
-
 }
-
 }
 );
 

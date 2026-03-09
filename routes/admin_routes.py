@@ -254,6 +254,22 @@ def admin_analytics():
     statuses = [row[0] for row in status_data]
     status_counts = [row[1] for row in status_data]
 
+    placement_query = """
+    SELECT companies.company_name, COUNT(applications.id)
+    FROM applications
+    JOIN placement_drives ON applications.drive_id = placement_drives.id
+    JOIN companies ON placement_drives.company_id = companies.id
+    WHERE applications.status = 'placed'
+    GROUP BY companies.company_name
+    """
+
+    cursor.execute(placement_query)
+
+    placements = cursor.fetchall()
+
+    placement_companies = [p[0] for p in placements]
+    placement_counts = [p[1] for p in placements]
+
     connection.close()
 
     return render_template(
@@ -261,5 +277,7 @@ def admin_analytics():
         company_names=company_names,
         application_counts=application_counts,
         statuses=statuses,
-        status_counts=status_counts
+        status_counts=status_counts,
+        placement_companies=placement_companies,
+        placement_counts=placement_counts
     )
