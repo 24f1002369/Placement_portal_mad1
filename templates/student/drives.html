@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h3 class="mb-4">Available Placement Drives</h3>
+<h3 class="mb-4">Eligible Placement Drives</h3>
 
 <div class="table-box">
 
@@ -21,26 +21,63 @@
 
 <tbody>
 
-{% for drive in drives %}
+{% for drive in eligible_drives %}
 
 <tr>
-
-<td>{{ drive[1] }}</td>
-<td>{{ drive[2] }}</td>
-<td>{{ drive[3] }}</td>
-<td>{{ drive[4] }}</td>
-<td>{{ drive[5] }}</td>
+<td>{{ drive.company_name }}</td>
+<td>{{ drive.title }}</td>
+<td>{{ drive.eligibility_cgpa }}</td>
+<td>{{ drive.drive_date }}</td>
+<td>{{ drive.last_date_to_apply }}</td>
 
 <td>
-
-<a href="{{ url_for('apply_drive', drive_id=drive[0]) }}"
+<a href="{{ url_for('apply_drive', drive_id=drive.id) }}"
 class="btn btn-primary btn-sm">
-
 Apply
-
 </a>
-
 </td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<h3 class="mt-5 mb-3">Not Eligible Drives</h3>
+
+<div class="table-box">
+
+<table class="table table-striped">
+
+<thead>
+<tr>
+<th>Company</th>
+<th>Role</th>
+<th>Eligibility CGPA</th>
+<th>Drive Date</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for drive in not_eligible_drives %}
+
+<tr class="table-secondary">
+
+<td>{{ drive.company_name }}</td>
+<td>{{ drive.title }}</td>
+<td>{{ drive.eligibility_cgpa }}</td>
+<td>
+{% set today = namespace(value=0) %}
+Deadline: {{ drive.last_date_to_apply }}
+</td>
+<td>Not Eligible</td>
 
 </tr>
 

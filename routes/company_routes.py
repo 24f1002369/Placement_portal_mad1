@@ -94,6 +94,8 @@ def create_drive():
         title = request.form["title"]
         description = request.form["description"]
         eligibility_cgpa = request.form["eligibility_cgpa"]
+        eligible_branches = request.form["eligible_branches"]
+        required_skills = request.form["required_skills"]
         drive_date = request.form["drive_date"]
         last_date_to_apply = request.form["last_date_to_apply"]
 
@@ -113,10 +115,10 @@ def create_drive():
         cursor.execute(
             """
             INSERT INTO placement_drives
-            (company_id,title, description, eligibility_cgpa, drive_date, last_date_to_apply)
-            VALUES (?, ?, ?, ?, ?, ?)
+            (company_id,title, description, eligibility_cgpa, eligible_branches, required_skills, drive_date, last_date_to_apply)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
-            (company_id,title,description,eligibility_cgpa,drive_date,last_date_to_apply)
+            (company_id,title,description,eligibility_cgpa,eligible_branches,required_skills,drive_date,last_date_to_apply)
         )
         connection.commit()
         connection.close()

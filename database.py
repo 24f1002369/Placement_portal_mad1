@@ -68,6 +68,8 @@ def init_db():
             title TEXT NOT NULL,
             description TEXT,
             eligibility_cgpa REAL CHECK(eligibility_cgpa >= 0 AND eligibility_cgpa <= 10),
+            eligible_branches TEXT NOT NULL,
+            required_skills TEXT,
             drive_date TEXT NOT NULL,
             last_date_to_apply TEXT NOT NULL,
             status TEXT NOT NULL DEFAULT 'pending'
