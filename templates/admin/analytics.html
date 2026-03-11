@@ -6,7 +6,7 @@
 
 <div class="row g-3">
 
-<!-- Applications Per Company -->
+
 <div class="col-md-4">
 <div class="card shadow-sm">
 <div class="card-body p-3">
@@ -20,7 +20,6 @@
 </div>
 
 
-<!-- Status Distribution -->
 <div class="col-md-4">
 <div class="card shadow-sm">
 <div class="card-body p-3">
@@ -34,7 +33,6 @@
 </div>
 
 
-<!-- NEW CHART : Placements by Company -->
 <div class="col-md-4">
 <div class="card shadow-sm">
 <div class="card-body p-3">
@@ -61,8 +59,6 @@ const statusCounts = {{ status_counts | tojson }};
 const placementCompanies = {{ placement_companies | tojson }};
 const placementCounts = {{ placement_counts | tojson }};
 
-
-/* Applications Per Company */
 
 new Chart(
 document.getElementById("companyChart"),
@@ -93,7 +89,6 @@ stepSize:1
 );
 
 
-/* Status Distribution */
 
 new Chart(
 document.getElementById("statusChart"),
@@ -118,8 +113,6 @@ maintainAspectRatio:true
 }
 );
 
-
-/* Placements by Company */
 
 new Chart(
 document.getElementById("placementChart"),

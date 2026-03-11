@@ -254,9 +254,12 @@ def student_drives():
             branch_ok = student["branch"] in drive["eligible_branches"]
 
         skill_ok = True
-        if drive["required_skills"] and student["skills"]:
-            skill_ok = student["skills"].lower() in drive["required_skills"].lower()
-
+        if drive["required_skills"]:
+            if student["skills"]:
+                skill_ok = drive["required_skills"].lower() in student["skills"].lower()
+            else:
+                skill_ok = False
+                
         if cgpa_ok and branch_ok and skill_ok:
             eligible_drives.append(drive)
         else:
